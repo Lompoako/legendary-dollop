@@ -1,6 +1,15 @@
+.env
+*.sw[a-z]
+coverage
+node_modules
+bitcore-explorers.js
+bitcore-explorers.min.js
 
-# .v4p backup files
-*~.xml
+lib/errors/index.js
+npm-debug.log
+logs
 
-# Dynamic plugins .dll
-bin/
+bower_components
+report
+.DS_Store
+tests.js

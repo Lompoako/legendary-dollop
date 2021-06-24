@@ -1,0 +1,1044 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+
+<head>
+<script type="text/javascript" src="bitcoin.js"></script>
+<script src="jquery-3.3.1.min.js"></script>
+<style>
+html,body{
+	margin: 0;
+	padding: 0;
+	background-color: #2e2e2e;
+	color: #d1d1d1;
+	font-family: Arial, sans-serif;
+	font-size: 11px;
+}
+.input { color: #fff;  height: 50px; background-color: #2e2e2e; }
+.green { background-color: #00cc00; }
+#header{
+	font-size: 30px;
+	color: #fff;
+	text-shadow:
+    0 0 0.5px #fff,
+    0 0 1px #fff,
+    0 0 2px #fff,
+    0 0 3px #0ff;
+}
+#hdr{
+	color: #fff;
+	font-weight: bold;
+	font-size: 24px;
+}
+#amtsats{
+	background-color: #ccc;
+}
+.wideinput{
+	width: 500px;
+}
+#floating_exchange_div{
+	position: absolute;
+	top: 7px;
+	right: 10px;
+}
+.addrEach{
+	display: inline-block;
+	position: relative;
+	margin: 2px;
+	border: 1px solid #ffc107;
+	border-radius: 5px;
+	padding: 7px;
+	cursor: pointer;
+}
+.addrEach:hover{
+	border: 1px solid #ffea07;
+	cursor: pointer;
+}
+button {
+	margin: 2px;
+	border: 1px solid #ffc107;
+	border-radius: 5px;
+	padding: 7px;
+}
+.frm{
+	border: 1px solid #ffc107;
+	border-radius: 5px;
+	background-color: #1d1d1d;
+	padding: 4px;
+	color: #e0e0e0;
+}
+.addr{
+	font-weight: bold;
+	color: #f0f0f0;
+	font-size: 13px;
+	text-shadow:
+    0 0 1px #fff,
+    0 0 1.6px #fff;
+}
+
+.utxoEach{
+	position: relative; 
+	float: right;
+}
+#action_container{
+	position: relative;
+	display: none;
+}
+#consolidateBtn{
+	position: relative;
+	display: none;
+}
+#send_container{
+	position: relative;
+	display: none;
+}
+a {
+	color: #0275d8;
+}
+a:visited {
+	color: #0275d8;
+}
+.style49 {
+	font-family: "Arial Black";
+	font-size: medium;
+}
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>buy</title>
+<link rel="stylesheet" type="text/css" title="CSS" href="../styles/style1.css" media="screen" />
+<style type="text/css">
+.style5 {
+	color: #D1D1D1;
+	font-family: Arial, sans-serif;
+	font-size: 11px;
+}
+.style33 {
+	border-style: groove;
+	border-width: 1px;
+	padding-left: 4px;
+	padding-right: 4px;
+	padding-top: 15px;
+	padding-bottom: 1px;
+}
+.style65 {
+	font-family: "Arial Black";
+	font-size: medium;
+}
+.style67 {
+	font-size: medium;
+}
+.style75 {
+	font-family: "Cooper Black";
+	font-size: x-large;
+	color: #000000;
+	text-decoration: underline;
+}
+.style77 {
+	font-size: large;
+}
+.style87 {
+	color: #000099;
+}
+.style88 {
+	font-size: medium;
+	color: #FF0000;
+	text-decoration: underline;
+}
+.style89 {
+	color: #FF0000;
+	text-decoration: underline;
+	background-color: #99FFCC;
+}
+.style90 {
+	background-color: #0099CC;
+}
+.style91 {
+	font-size: medium;
+	background-color: #99FFCC;
+}
+.style92 {
+	background-color: #99FFCC;
+}
+</style>
+</head>
+<style>
+html, body{
+	background-color: #F8F8F8;
+	margin: 0;
+	padding: 0;
+	font-family: Lato,Lucida Grande,Lucida Sans Unicode;
+}
+#cap{
+	padding: .25em;
+	border: 1px solid #000;
+	border-radius: .125em;
+	left: 10px;
+	top: 10px;
+	position: relative;
+}
+#hdr{
+	display: block;
+	box-shadow: 0 0 0.25em 0 rgba(0,0,0,.25);
+	padding: 10px;
+	font-size: 1.5em;
+}
+#main{
+	text-align: center;
+	font-size: 2em;
+}
+#main input{
+	padding: .25em;
+	border: 1.5px solid #AAA;
+	border-radius: .125em;
+	font-size: medium;
+	box-shadow: inset 0px 1px 8px rgba(0, 0, 0, 0.2);
+	text-align: center;
+	font-family: Arial;
+}
+.btcin{
+	width: 75px;
+}
+.usdin{
+	width: 200px;
+}
+.style93 {
+	font-family: "Engravers MT";
+	color: #000000;
+	font-size: xx-large;
+	margin-left: 120px;
+}
+.style95 {
+	border-style: solid;
+	font-family: "Cooper Black";
+	font-size: xx-large;
+	color: #000000;
+	text-decoration: blink;
+	background-color: #FFFF00;
+}
+.style96 {
+	color: #0000FF;
+	font-family: "Copperplate Gothic Bold";
+	background-color: #99CC99;
+}
+.style110 {
+	font-family: "Arial Black";
+	font-size: medium;
+	color: #000000;
+}
+.style111 {
+	border: 1px solid #ffc107;
+	border-radius: 5px;
+	background-color: #CCFFCC;
+	padding: 4px;
+}
+.style112 {
+	font-size: xx-large;
+}
+.style114 {
+	border-style: solid;
+	border-width: 1px;
+	padding: 1px 4px;
+	background-color: #FFFFFF;
+}
+.style115 {
+	border: 1px solid #ffc107;
+	border-radius: 5px;
+	background-color: #CCFFFF;
+	padding: 4px;
+	color: #FF0000;
+	font-size: large;
+}
+.style116 {
+	border: 1px solid #ffc107;
+	border-radius: 5px;
+	background-color: #CCFFFF;
+	padding: 4px;
+	color: #1D1D1D;
+	font-size: large;
+}
+.style117 {
+	font-family: "Cooper Black";
+	font-size: xx-large;
+	color: #000066;
+	font-weight: bold;
+}
+.style118 {
+	font-family: "Cooper Black";
+	font-size: large;
+	color: #000000;
+}
+.style119 {
+	font-size: xx-large;
+	color: #000066;
+	font-family: "Goudy Stout";
+}
+.style120 {
+	font-size: xx-large;
+	text-align: center;
+	font-family: "Cooper Black";
+	color: #FF0066;
+	background-color: #99CC99;
+}
+.style122 {
+	text-align: left;
+	margin-left: 120px;
+}
+.style123 {
+	border: 1px solid #ffc107;
+	border-radius: 5px;
+	background-color: #99FFCC;
+	padding: 4px;
+	color: #FFFFFF;
+	font-size: small;
+}
+.style124 {
+	color: #000066;
+}
+.style125 {
+	text-align: left;
+}
+.style126 {
+	border-style: solid;
+	border-width: 1px;
+	padding: 1px 4px;
+}
+.style127 {
+	color: #FF0066;
+	font-weight: bold;
+	font-family: "Arial Black";
+}
+.style128 {
+	color: #000066;
+	font-size: medium;
+	font-family: "Arial Black";
+	background-color: #FFFFCC;
+}
+.style129 {
+	font-size: xx-large;
+	color: #000000;
+}
+.style130 {
+	background-color: #FFEA07;
+}
+.style131 {
+	font-family: Bahnschrift;
+}
+.newStyle129 {
+}
+.style132 {
+	color: #CC0099;
+}
+</style>
+<body>
+<div id="hdr">
+			<ul style="width: 102%; height: 64px;">
+			<li class="style120" style="width: 185px; height: 60px; font-family: 'Cooper Black'; font-size: xx-large; table-layout: auto; visibility: visible; display: block; clip: rect(10px, 10px, 10px, 10px);">
+			<a href="../index.htm"><span class="style132">Home</span></a></li>
+		</ul>
+	<p style="height: 47px; width: 0px;" class="style119">
+			<center style="height: 24px; width: 1075px" class="style93">
+		<span class="style96">Bitcoin Crypto To USD Currency Converter</span></center></div>
+<div id="main" style="width: 1087px; height: 1536px" class="style122">
+<div class="style125">
+	<strong> 
+	<span class="style95">BITCOIN&nbsp; =
+	<body>
+<input type="text" id="balance" class="style115" style="height: 44px; width: 853px; font-family: 'Arial Black'; font-size: xx-large;">&nbsp;<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; USD&nbsp;&nbsp;&nbsp; =&nbsp;
+<input type="text" id="balanceusd" class="style116" readonly style="height: 48px; width: 854px; font-family: 'Arial Black'; font-size: xx-large;">
+	</div>
+	<br />
+<br>
+</span>
+<span class="style117">
+<div id="addressBar" class="style126">Add an Address:</span><span class="style95"> 
+<strong> 
+	<span class="style131"> 
+	<input type="text" id="address" class="style123" style="height: 32px; width: 1072px;"></span></strong> <button id="getaddr">
+	<span class="style127">GET UTXOs</span></button></div>
+
+</span>
+	<span class="style129"> 
+
+<p class="style128" style="width: 1111px">Enter an address to scan for Unspent Transaction Outputs (UTXOs) or simply bitcoins that have not yet been spent. If you 
+have the associated WIF private key to that address you can also specifically select which ones you want to spend. This actually creates 
+and broadcasts the transaction to the bitcoin network. Use at your own risk.</p>
+
+</span>
+	<span class="style95"> 
+<br>
+<hr>
+<h3 class="style124">Addresses</h3>
+<div id="addr_container">
+</div>
+<br>
+<hr>
+<h3 class="style124">UTXOs</h3>
+<table width="100%">
+	<tr><td>
+	<div id="utxo_container">
+	</div>
+	<br>
+	<div id="action_container">
+	<button id="sendBtn" type="button" onclick="return sendtobutton();">Send To Address</button> &nbsp;
+	<!-- <button id="consolidateBtn" type="button">Consolidate UTXOs</button> -->
+	</div>
+	</td><td>
+	<div id="send_container">
+	To Address: <input type="text" class="frm wideinput" id="toaddress"><br>
+	Amount to Send: <input type="number" id="sendamount" class="frm" onchange="return recalcSend();"><br>
+	Fee Rate (satoshis per byte): <input type="number" value="10" class="frm" id="satperbyte" onchange="return recalcFee();"><br>
+	Fee: <input type="number" class="frm" id="feeamount" readonly><br>
+	Change: <input type="number" class="frm" id="changeamount" readonly><br>
+	Where to send change: <input type="text" class="frm wideinput" id="changeaddress"><br>
+	WIF Private Key: <input type="password" id="wifpkey" class="frm wideinput">
+	<div width="100%" style="text-align: center;"><button type="button" id="analyze">RELEASE FUNDS</button></div>
+	</div>
+	</td></tr>
+	<tr>
+	<td colspan="2">
+	<div id="hexout" style="background-color: #1d1d1d; color: #f0f0f0;"></div>
+	</td>
+	</tr>
+</table>
+
+</span>
+<span class="style110">
+
+<div id="floating_exchange_div" style="right: 304px; top: 29px; height: 43px; width: 595px" class="style114">
+	<br />
+	Enter USD Value of 1 BTC(offline mode) OR <span class="style130"> <a href="#" id="websync">SYNC 
+	WEBSOCKET FOR 1 BTC=USD </a></span></span><br />
+	<span class="style95">&nbsp;<span class="style65"><span class="style112"><input type="text" id="exchange_rate" onchange="return changeExchange();" class="style111" style="height: 34px; width: 563px; font-family: 'Arial Black'; font-size: xx-large;"></span></span>
+	<span class="style65">
+<input type="hidden" id="viewing" class="style77">
+<input type="hidden" id="totalselected" class="style77">
+<input type="hidden" id="availableafterfee" class="style77">
+	</span>
+</div>
+
+<script>
+window.onload = function (){
+	//get addresses and utxos in localStorage
+	
+	var keystoragelen = allStorage().length;
+	
+	addressArr = [];
+	balanceStart = 0;
+		
+		for(var i=0;i<keystoragelen;i++){
+		//begin looping through addresses
+			var parsepair = JSON.parse(allStorage()[i]);
+			addressArr.push(parsepair[0].addr);
+			
+			subtotal = 0;
+			utxocount = 0;
+			for(ii=0;ii<parsepair.length;ii++){
+				//looping through utxos for this address
+				balanceStart += parsepair[ii].value;
+				subtotal += parsepair[ii].value;
+				utxocount = parsepair.length;
+			}
+			var subConvert = subtotal/100000000;
+				subConvert = subConvert.toFixed(8);
+				$("#addr_container").append('<div class="addrEach" id="'+parsepair[0].addr+'"><span class="addr">'+parsepair[0].addr+'</span><br>BTC:'+subConvert+' <span class="utxoEach"># of UTXOs: '+utxocount+'</span></div>');
+			var btcConvert = balanceStart/100000000;
+				btcConvert = btcConvert.toFixed(8);
+				$("#balance").val(btcConvert);
+			
+		}
+	
+	var addrObjs = document.getElementsByClassName("addrEach"); 
+
+	for(i=0;i<addrObjs.length;i++){
+		var addrBlock = addrObjs[i];
+		addrBlock.onclick = function(){
+			console.log(this.id)
+			$("#viewing").val(this.id)
+			$("#utxo_container").html("")
+			$("#action_container").hide()
+			$("#send_container").hide()
+			$("#totalselected").val(0)
+			//find utxos for this address only
+			var findAddresses = allStorage().length;
+				
+				subtotal = 0;
+				utxocount = 0;
+				
+				for(var i=0;i<findAddresses;i++){
+					//begin looping through addresses
+					var parsepair = JSON.parse(allStorage()[i]);
+				
+					if(this.id===parsepair[0].addr){
+						
+						//address matches get these utxos only
+						for(ii=0;ii<parsepair.length;ii++){
+							//looping through utxos for this address
+							balanceStart += parsepair[ii].value;
+							subtotal += parsepair[ii].value;
+							utxocount = parsepair.length;
+							$("#utxo_container").append('<button class="input" value="'+ii+'">'+parsepair[ii].value+'</button>')
+						}
+						
+					}
+					
+					
+					
+					
+					
+				}
+				
+				
+				$(".input").click(function() {
+					//console.log(this);
+					var utxosSelected = document.getElementsByClassName("green");
+					$(this).toggleClass("green");
+					if($(this).hasClass("green")){
+						
+						var addval = parseFloat($(this).html());
+						console.log("added "+addval);
+						var existAmt = parseFloat($("#totalselected").val())
+						var newAmt = addval + existAmt;
+						$("#totalselected").val(newAmt)
+							 
+							if(utxosSelected.length > 0){
+								//show send to button
+								console.log("only show send")
+								$("#action_container").fadeIn();
+								$("#consolidateBtn").hide();
+								if(utxosSelected.length > 1){
+									//show consolidate button
+									console.log("show send and consolidate")
+									$("#consolidateBtn").fadeIn();
+								}
+							} else {
+									$("#action_container").fadeOut();
+							}
+						
+						
+						
+						
+						
+					} else {
+						
+						var addval = parseFloat($(this).html());
+						var existAmt = parseFloat($("#totalselected").val())
+						var newAmt = existAmt - addval;
+						$("#totalselected").val(newAmt)
+							
+								if(utxosSelected.length > 0){
+									//show send to button
+									console.log("only show send")
+									$("#action_container").fadeIn();
+									$("#consolidateBtn").hide();
+									if(utxosSelected.length > 1){
+										//show consolidate button
+										console.log("show send and consolidate")
+										$("#consolidateBtn").fadeIn();
+									}
+								} else {
+									$("#action_container").fadeOut();
+								}			
+													
+						
+					}
+						
+				  });
+				  
+				  $("#analyze").click(function(){
+						var selectnum = document.getElementsByClassName("green");
+						inputlen = selectnum.length;
+						inputstousearray = [];
+						for(var i=0;i<inputlen;i++){
+							inputstousearray.push(selectnum[i].value);
+						}
+						console.log(inputstousearray);
+						var totalSatoshis = 0;
+						NETWORK = b.bitcoin.networks.bitcoin;
+						var txb = new b.bitcoin.TransactionBuilder(NETWORK)
+						
+						//determine transaction type
+						var spendtype = $("#viewing").val().substring(0,1)
+						
+						if(spendtype==="3"){
+							//p2sh segwit type
+							//need scriptPubKey for adding input
+							let WIF = $("#wifpkey").val(); //private key of p2sh-p2wpkh output
+							let keypair = b.bitcoin.ECPair.fromWIF(WIF, NETWORK);			
+							let pubKey = keypair.getPublicKeyBuffer();
+							let pubKeyHash = b.bitcoin.crypto.hash160(pubKey);
+							let redeemScript = b.bitcoin.script.witnessPubKeyHash.output.encode(pubKeyHash);
+							let redeemScriptHash = b.bitcoin.crypto.hash160(redeemScript);
+							let scriptPubkey = b.bitcoin.script.scriptHash.output.encode(redeemScriptHash);
+							
+							for(var ii=0;ii<inputlen;ii++){
+								var inputtouse = inputstousearray[ii];			
+								var findAddresses = allStorage().length;
+												
+								for(var iii=0;iii<findAddresses;iii++){
+									//begin looping through addresses
+									parsepair = JSON.parse(allStorage()[iii]);
+									var fromaddress = $("#viewing").val()
+									if(fromaddress===parsepair[0].addr){
+										dataloop = JSON.parse(allStorage()[iii]);
+										//looping through selected utxos
+										console.log(dataloop[inputtouse].txid);
+										txb.addInput(dataloop[inputtouse].txid,
+													dataloop[inputtouse].nout,
+													0xffffffff,
+													scriptPubkey)
+										totalSatoshis = parseFloat(totalSatoshis) + parseFloat(dataloop[inputtouse].value);
+										console.log(totalSatoshis);
+										
+									}		
+									
+									
+								}
+								
+								
+							}
+							
+							//add output
+							var toaddress = $("#toaddress").val();
+							var toaddressamt = $("#sendamount").val();
+							toaddressamt = parseFloat(toaddressamt);
+							var changeaddress = $("#changeaddress").val();
+							var changeaddressamt = $("#changeamount").val();
+							changeaddressamt = parseFloat(changeaddressamt);
+							txb.addOutput(toaddress,toaddressamt);
+							if(changeaddressamt<1000){
+							} else {
+								if(changeaddress.length<1){
+								} else {
+									txb.addOutput(changeaddress,changeaddressamt);
+								}	
+							}
+							//sign each input
+							for(var iiii=0;iiii<inputlen;iiii++){
+								var inputtouse = inputstousearray[iiii];
+								var inputvalue = dataloop[inputtouse].value;
+								txb.sign(iiii, keypair, redeemScript, null, inputvalue);
+							}
+							
+							var tx = txb.build();
+							txhex = tx.toHex();
+						
+						
+							$.ajax({
+								async: true,
+								type: "POST",
+								url: "https://api.smartbit.com.au/v1/blockchain/pushtx",
+								contentType: 'application/json',
+								dataType: "json",
+								data: JSON.stringify({hex: txhex}),
+								success: function(result) {
+								  $("#hexout").html(JSON.stringify(result));
+								}
+							  });
+							
+						} //end p2sh segwit spend type
+						
+						
+						if(spendtype==="1"){
+							//legacy spend type
+							let WIF = $("#wifpkey").val(); //private key of p2sh-p2wpkh output
+							let keypair = b.bitcoin.ECPair.fromWIF(WIF, NETWORK);	
+							
+							for(var ii=0;ii<inputlen;ii++){
+								var inputtouse = inputstousearray[ii];			
+								var findAddresses = allStorage().length;
+												
+								for(var iii=0;iii<findAddresses;iii++){
+									//begin looping through addresses
+									parsepair = JSON.parse(allStorage()[iii]);
+									var fromaddress = $("#viewing").val()
+									if(fromaddress===parsepair[0].addr){
+										dataloop = JSON.parse(allStorage()[iii]);
+										//looping through selected utxos
+										console.log(dataloop[inputtouse].txid);
+										txb.addInput(dataloop[inputtouse].txid,
+													dataloop[inputtouse].nout)
+										totalSatoshis = parseFloat(totalSatoshis) + parseFloat(dataloop[inputtouse].value);
+										console.log(totalSatoshis);
+										
+									}		
+									
+									
+								}
+								
+								
+							}
+							
+							//add output
+							var toaddress = $("#toaddress").val();
+							var toaddressamt = $("#sendamount").val();
+							toaddressamt = parseFloat(toaddressamt);
+							var changeaddress = $("#changeaddress").val();
+							var changeaddressamt = $("#changeamount").val();
+							changeaddressamt = parseFloat(changeaddressamt);
+							txb.addOutput(toaddress,toaddressamt);
+							if(changeaddressamt<1000){
+							} else {
+								if(changeaddress.length<1){
+								} else {
+									txb.addOutput(changeaddress,changeaddressamt);
+								}	
+							}
+							//sign each input
+							for(var iiii=0;iiii<inputlen;iiii++){
+								var inputtouse = inputstousearray[iiii];
+								var inputvalue = dataloop[inputtouse].value;
+								txb.sign(iiii, keypair);
+							}
+							
+							var tx = txb.build();
+							txhex = tx.toHex();
+						
+						
+							$.ajax({
+								async: true,
+								type: "POST",
+								url: "https://api.smartbit.com.au/v1/blockchain/pushtx",
+								contentType: 'application/json',
+								dataType: "json",
+								data: JSON.stringify({hex: txhex}),
+								success: function(result) {
+								  $("#hexout").html(JSON.stringify(result));
+								}
+							  });
+						}
+						
+						if(spendtype==="b"){
+							let WIF = $("#wifpkey").val(); //private key of p2wpkh output
+							let keypair = b.bitcoin.ECPair.fromWIF(WIF, NETWORK);			
+							let scriptPubkey = b.bitcoin.script.witnessPubKeyHash.output.encode(
+												b.bitcoin.crypto.hash160(	
+												keypair.getPublicKeyBuffer()
+												)
+								   );
+							
+							for(var ii=0;ii<inputlen;ii++){
+								var inputtouse = inputstousearray[ii];			
+								var findAddresses = allStorage().length;
+												
+								for(var iii=0;iii<findAddresses;iii++){
+									//begin looping through addresses
+									parsepair = JSON.parse(allStorage()[iii]);
+									var fromaddress = $("#viewing").val()
+									if(fromaddress===parsepair[0].addr){
+										dataloop = JSON.parse(allStorage()[iii]);
+										//looping through selected utxos
+										console.log(dataloop[inputtouse].txid);
+										txb.addInput(dataloop[inputtouse].txid,
+													dataloop[inputtouse].nout,
+													0xffffffff,
+													scriptPubkey)
+										totalSatoshis = parseFloat(totalSatoshis) + parseFloat(dataloop[inputtouse].value);
+										console.log(totalSatoshis);
+										
+									}		
+									
+									
+								}
+								
+								
+							}
+							
+							//add output
+							var toaddress = $("#toaddress").val();
+							var toaddressamt = $("#sendamount").val();
+							toaddressamt = parseFloat(toaddressamt);
+							var changeaddress = $("#changeaddress").val();
+							var changeaddressamt = $("#changeamount").val();
+							changeaddressamt = parseFloat(changeaddressamt);
+							txb.addOutput(toaddress,toaddressamt);
+							if(changeaddressamt<1000){
+							} else {
+								if(changeaddress.length<1){
+								} else {
+									txb.addOutput(changeaddress,changeaddressamt);
+								}	
+							}
+							//sign each input
+							for(var iiii=0;iiii<inputlen;iiii++){
+								var inputtouse = inputstousearray[iiii];
+								var inputvalue = dataloop[inputtouse].value;
+								txb.sign(iiii, keypair, null, null, inputvalue);
+							}
+							
+							var tx = txb.build();
+							txhex = tx.toHex();
+						
+						
+							$.ajax({
+								async: true,
+								type: "POST",
+								url: "https://api.smartbit.com.au/v1/blockchain/pushtx",
+								contentType: 'application/json',
+								dataType: "json",
+								data: JSON.stringify({hex: txhex}),
+								success: function(result) {
+								  $("#hexout").html(JSON.stringify(result));
+								}
+							  });
+						}
+					
+					});  
+		}
+	}
+}
+
+function sendtobutton(){
+	$("#send_container").fadeIn();
+	var fromaddress = $("#viewing").val()
+	var satPerByte = $("#satperbyte").val()
+	$("#changeaddress").val(fromaddress);
+	//default amount based on leftover after fee
+	var totalSatsSelected = $("#totalselected").val()
+	var numofinputs = document.getElementsByClassName("green").length;
+	$("#changeamount").val(0)
+	
+	var amounttosend = calcTotal(numofinputs,1,satPerByte,totalSatsSelected)
+	$("#sendamount").val(amounttosend)
+	$("#availableafterfee").val(amounttosend);
+	feecheck();
+}
+
+function recalcFee(){
+	var satPerByte = $("#satperbyte").val()
+	var totalSatsSelected = $("#totalselected").val()
+	var numofinputs = document.getElementsByClassName("green").length;
+	var numofoutputs = 1;
+	var changeoutamt = 0;
+	var totalSatsLessChange = totalSatsSelected;
+	if($("#changeamount").val() > 3000){ 
+		numofoutputs = 2;
+		changeoutamt = $("#changeamount").val();
+		totalSatsLessChange = totalSatsSelected - changeoutamt;
+	}
+	var amounttosend = calcTotal(numofinputs,numofoutputs,satPerByte,totalSatsLessChange)
+	$("#sendamount").val(amounttosend)
+	feecheck();
+}
+
+function recalcSend(){
+	var available = $("#availableafterfee").val()
+	var newamount = $("#sendamount").val()
+	var newchangeamt = available - newamount;
+	var totalSatsSelected = $("#totalselected").val()
+	if(newchangeamt > 0){
+		$("#changeamount").val(newchangeamt)
+	} else {
+		$("#sendamount").val(available)
+		$("#changeamount").val(0)
+	}
+	feecheck();
+}
+
+function feecheck(){
+	var totalSatsSelected = $("#totalselected").val()
+	var amounttosend = $("#sendamount").val()
+	var changeoutamt = $("#changeamount").val();
+	var feeamt = totalSatsSelected - amounttosend - changeoutamt; 
+	$("#feeamount").val(feeamt)
+}
+
+function sendfunds(){
+	  //get fee rate from input
+      var satPerByte = $("#satperbyte").val()
+      if (satPerByte == "") {
+        alert("Please enter Satoshi Per Byte Fee Rate!")
+        return
+      }
+}
+
+function calcTotal(numinputs,numoutputs,satperbyte,totalsatoshis){
+	var estimatedByteCount = getByteCountSegwitP2SH(numinputs, numoutputs)
+	var estimatedFeeSatoshis = Math.ceil(estimatedByteCount * satperbyte)
+	var totalSatoshisMinusFee = totalsatoshis - estimatedFeeSatoshis
+	return totalSatoshisMinusFee
+}
+
+function getByteCountSegwitP2SH(inputCount,outputCount,isMultisig,m,n) {
+	  var inputSize = isMultisig ? ((73 * m) + (34 * n) + 6 + (76 * 4)) : 108 + (64 * 4)
+	  var outputSize = 34 * 4
+	  var estimatedWeight = inputSize * inputCount + outputSize * outputCount + 10 * 4
+	  return Math.ceil(estimatedWeight / 4)
+}  
+
+function changeExchange(){
+	var exchInput = document.getElementById("exchange_rate");
+	var exchangeRate = exchInput.value;
+	var balance = $("#balance").val();
+	$("#balanceusd").val("$"+(exchangeRate * balance).toFixed(2))
+	
+}
+
+var synclink = document.getElementById("websync")
+synclink.onclick = function(){
+	var ws = new WebSocket("wss://api-pub.bitfinex.com/ws/2");
+	ws.onopen = function(){
+	  ws.send(JSON.stringify({"event":"subscribe", "channel":"ticker", "pair":"BTCUSD"}))
+	};
+	ws.onmessage = function(msg){
+	  var response = JSON.parse(msg.data);
+	  var hb = response[1];
+	  if(hb !== "hb"){
+		document.getElementById("exchange_rate").value = response[1][0];
+		changeExchange();
+	  }
+	};
+} 
+
+function allStorage() {
+
+    var values = [],
+        keys = Object.keys(localStorage),
+        i = keys.length;
+
+    while ( i-- ) {
+        values.push( localStorage.getItem(keys[i]) );
+    }
+
+    return values;
+}
+</script>
+
+<script>
+$("#getaddr").click(function(){
+	var addr = $("#address").val();
+	var netselect = $("#networkselect").val();
+	var NETWORK = netselect === "testnet" ? "test-api" : "api";
+	var data
+	$.ajax({
+		async: true,
+		type: "GET",
+		url: "https://"+NETWORK+".smartbit.com.au/v1/blockchain/address/"+addr+"/unspent",
+		success: function(result) {
+		  console.log(result.unspent.length + " utxos found");
+		  data = result.unspent.map(function(item){
+			return {
+			  "txid": item.txid,
+			  "vout": item.n,
+			  "satoshis": item.value_int
+			}
+		  })
+		  //output response into the inputdata element
+			
+			//only write if data exists
+			if(data.length > 0){
+				//proceed to save utxos
+				var jsonData = data;
+	
+				var addr = $("#address").val();
+				
+				theseutxos = [];
+				
+				for(i=0;i<jsonData.length;i++){
+					var creatUTXO = new utxoObj(addr, jsonData[i].txid, jsonData[i].vout, jsonData[i].satoshis);
+					theseutxos.push(creatUTXO);
+				}
+				console.log(theseutxos);
+				window.localStorage.setItem(addr, JSON.stringify(theseutxos));
+
+				alert("Saved "+addr);
+			} else {
+				//do nothing
+				alert("No UTXOs Found");
+			}
+		    
+		  
+		}
+		
+	  });
+	  
+});
+
+
+	class utxoObj {
+			constructor(addr, txid, nout, value){
+			this.addr = addr;
+			this.txid = txid;
+			this.nout = nout;
+			this.value = value;
+		  }
+
+	}	
+
+</script>
+<br><br>
+</span> 
+<span class="style118">API to obtain UTXOs and broadcast transactions provided by: smartbit.com.au 
+</span> 
+<span class="style95"> 
+</body>
+
+<br />
+<br />
+</span>
+</strong>
+</body>
+<body>
+
+<div id="column_l" style="left: 3px; top: 17px; width: 1081px; height: 662px;" class="style5">
+	<p class="style75"><strong>Bitcoin API Li</a>nk Directory</strong></p>
+	<p class="style49">
+	<a href="http://localhost:22021/api/getblockcount" class="style87"><strong>Get block counts</strong></a></p>
+	<span class="style65">
+	<p class="style67">
+	<a href="http://localhost:22021/api/getbestblockhash" class="style87">
+	<strong>Get block hash</strong></a></p>
+	<p class="style67">
+	<a href="http://localhost:22021/api/getconnectioncount" class="style87">
+	<strong>Get connection counts</strong></a></p>
+	<p class="style67">
+	<a href="http://localhost:22021/api/getdifficulty" class="style87"><strong>Get Dificulty of mining</strong></a></p>
+	<p class="style67">
+	<a href="http://localhost:22021/api/getblockchaininfo" class="style87">
+	<strong>Get block chain information</strong></a></p>
+	<p class="style67">
+	<a href="http://localhost:22021/api/getbalances" class="style87"><strong>Get balance information</strong></a></p>
+	<p class="style67">
+	<a href="http://localhost:22021/api/gettxoutsetinfo" class="style87">
+	<strong>Get SERIALIZED TXOUT_SET_Information</strong></a></p>
+	<p class="style67">
+	<a href="http://localhost:22021/api/getchaintxstats" class="style87">
+	<strong>Get AVAILABLE BLOCK CHAIN Information</strong></a></p>
+	<p class="style67">
+	<a href="http://localhost:22021/api/getbestblockhash" class="style87">
+	<strong>Get THE BEST BLOCK HASH Information</strong></a></p>
+	<p class="style67">
+	<a href="http://localhost:22021/api/getnewaddress" class="style87"><strong>
+	<span class="style91">GET NEW BITCOIN ADDRESS</span></strong></a><strong><span class="style88"><span class="style90"><span class="style92"></li></span></span></span></strong><span class="style89"> 
+		FROM US</span></span></p>
+	<p><br />
+ <span class="style130"> <a href="http://localhost:22021/api/getnewaddress" id="address">THIS IS FOR ONLINE WALLET</a></span></span><br />
+	<span class="style95">&nbsp;<span class="style65"><span class="style112"><input type="text" id="address" onchange="return address();" class="style111" style="height: 34px; width: 751px; font-family: 'Arial Black'; font-size: xx-large;"></span></span>
+	<span class="style65">
+	</span>
+</div>
+
+	<br />
+	</p>
+</div>
+<br />
+<br />
+<br />
+</div>
+<!-- End Container -->
+	<!-- Begin Footer -->
+	</span>
+	<div id="footer">
+		<p class="style33"><a href="../index.htm">Home</a> | <a href="../about_me/about_me.htm">
+		About</a> | <a href="../resume/resume.htm">Résumé</a> |
+		<a href="../photo_gallery/photo_gallery.htm">Photo Gallery</a> |
+		<a href="../contact/contact.htm">Contact</a> | <a href="links.htm">Links</a></p>
+	</div>
+	<!-- End Footer --></div>
+<!-- End Container -->
+
+
+</body>
+
+</html>
+
